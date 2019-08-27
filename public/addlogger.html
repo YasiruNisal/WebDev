@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Logger</title>
+
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="main.css">
+    
+	<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="middle">
+        <div class="mdl-card mdl-shadow--2dp mdl-cell">
+            <div class="mdl-card__title mdl-color--orange-500">
+                <h2 class="mdl-card__title-text" id="status">User Information</h2>
+            </div>    
+
+            <button id="btnSignOut" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Sign Out</button>
+            <p id="username"></p>
+            <p id="companyid"></p>
+            <p id="accesslevel"></p>
+            <p id="email"></p>
+            
+            
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" id="txtSerialNo" placeholder="Enter Logger Serial No." /> 
+            </div>
+            <button id="btnAddLogger" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add Logger</button>
+            
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" id="txtEmailAdd" placeholder="Enter Email Address" /> 
+            </div>
+            <form id=radioSelectLevel>Select Access Level<br> 
+            <input type="radio" name="colors" id="manager">Manager
+            <br>
+            <input type="radio" name="colors" id="distributor">Distributor
+            </form>
+                  
+            <button id="btnChangeAccess" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Change Access Level to Manager</button>
+            
+            <br></br>
+            
+            <button id="btnViewLogger" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">View Logger List</button>
+            <br></br>
+            <table style="width:100%" id="ex-table"></table>
+
+            <br></br>
+            <p><a id="downlink" href=""></a></p>
+        </div> 
+    </div>  
+
+	<script src="config.js"></script>
+	<script src="addloggerscript.js"></script>
+
+
+
+  
+</body>
+</html>

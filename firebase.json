@@ -1,0 +1,17 @@
+{
+  "database": {
+    "rules": "security.rules.json"
+  },
+  "storage": {
+    "rules": "security.rules1.json"
+  },
+
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+ "rules": {
+   "request": {
+     "$uid": {
+        ".read": "auth !== null && $uid === auth.uid",
+        ".write": "auth !== null && $uid === auth.uid"
+    }
+   },
+    "userprofile": {
+   "$uid": {
+      ".read": "auth !== null && $uid === auth.uid",
+      ".write": "auth !== null && $uid === auth.uid"
+    }
+   },
+   "company": {
+     "$company": {
+        ".read": "auth !== null",
+        ".write": "auth !== null"
+     }
+   }
+
+  }
+}
