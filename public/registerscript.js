@@ -4,9 +4,9 @@ document.getElementById("btnRegister").addEventListener('click', e=>{
     const email = document.getElementById("txtEmail").value;
     const pass = document.getElementById("txtPassword").value;
 
-    firebase.auth().createUserWithEmailAndPassword(email, pass)
-    
-    .catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(email, pass).then(() => {
+        
+    }).catch(function(error) {
         console.log(error.message);
     });
 
@@ -36,6 +36,16 @@ firebase.auth().onAuthStateChanged(user=>
             accesslevel: 3
         })
        // window.location = 'addlogger.html';
+
+       //---- Comment this out to remove email verification ---//
+    //    if(!user.emailVerified)
+    //    {
+    //     user.sendEmailVerification().then(function() {
+    //         confirm("Verify E-mail address to login");
+    //       }).catch(function(error) {
+    //         // An error happened.
+    //       });
+    //    }
     } 
 })
 //==========================================================//

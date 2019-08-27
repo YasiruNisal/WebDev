@@ -100,12 +100,12 @@ function checkEdited()
 {
   var val;
   db.once('value', function(snapshot) {
-  if (snapshot.exists()) {
-    
-    val = snapshot.val();
-    print(snapshot.val());
-    return val["edit"];
-  }
+    if (snapshot.exists()) {
+      
+      val = snapshot.val();
+      print(snapshot.val());
+      return val["edit"];
+    }
    
   });
   

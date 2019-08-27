@@ -66,6 +66,7 @@ document.getElementById("btnChangeAccess").addEventListener('click', e=>{
 })
 //==========================================================//
 
+
 //==========================================================//
 document.getElementById("btnAddLogger").addEventListener('click', e=>{
     var uid = firebase.auth().currentUser.uid;
