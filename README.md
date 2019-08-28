@@ -1,49 +1,49 @@
-#Links
+# Links
 
-###Pricing
+### Pricing
 https://firebase.google.com/pricing
 --------------------------------------------------
 
-###What to include in the package.json file
+### What to include in the package.json file
 https://flaviocopes.com/package-json/
 ---------------------------------------------------
 
-###Function triggers
+### Function triggers
 https://cloud.google.com/functions/docs/calling/
 --------------------------------------------------
 
-###Firebase database 
+### Firebase database 
 https://firebase.google.com/docs/database
 --------------------------------------------------
 
-###Firebase database rules 
+### Firebase database rules 
 https://firebase.google.com/docs/database/security
 -------------------------------------------------
 
-###Firebase storage  
+### Firebase storage  
 https://firebase.google.com/docs/storage
 --------------------------------------------------
 
-###Firebase database rules 
+### Firebase database rules 
 https://firebase.google.com/docs/storage/security
 --------------------------------------------------
 
-###Firebase Hosting 
+### Firebase Hosting 
 https://firebase.google.com/docs/hosting
 -------------------------------------------------
 
-----Firebase Functions------------------------
+### Firebase Functions
 https://firebase.google.com/docs/functions
 http://corinnekrych.blogspot.com/2019/01/faas-tutorial-2-set-up-google-cloud.html
 -----------------------------------------------
 
---- Data Access Control -------------------------
+### Data Access Control 
 https://medium.com/google-developers/controlling-data-access-using-firebase-auth-custom-claims-88b3c2c9352a
 -------------------------------------------------
 
-#Notes
+# Notes
 
-####Remember to set the hosting server location to Australia SouthEast
+#### Remember to set the hosting server location to Australia SouthEast
 
 ------------------------------------------------
 
