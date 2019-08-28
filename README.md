@@ -1,4 +1,4 @@
-Links
+#Links
 
 -----Pricing---------------------------------------
 https://firebase.google.com/pricing
@@ -41,9 +41,9 @@ http://corinnekrych.blogspot.com/2019/01/faas-tutorial-2-set-up-google-cloud.htm
 https://medium.com/google-developers/controlling-data-access-using-firebase-auth-custom-claims-88b3c2c9352a
 -------------------------------------------------
 
-Notes
+#Notes
 
-**Remember to set the hosting server location to Australia SouthEast
+####Remember to set the hosting server location to Australia SouthEast
 
 ------------------------------------------------
 
