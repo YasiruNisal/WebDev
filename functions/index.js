@@ -154,10 +154,10 @@ function print(obj)
 
 
 // //exports.addmanager = functions.https.onCall((data, context))
-// exports.addmanager = functions.auth.user().onCreate((user) => {
+// exports.addm = functions.auth.user().onCreate((user) => {
 //   const email = user.email;
 //   return grantManagerRole(email, user);
-// })
+// });
 
 //==========================================================//
 exports.addManager = functions.https.onCall((data, context) => {

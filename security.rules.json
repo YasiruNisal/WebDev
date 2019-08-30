@@ -7,12 +7,20 @@
         ".write": "auth !== null && $uid === auth.uid"
     }
    },
-    "userprofile": {
+   "userprofile": {
    "$uid": {
+     /*"profile":{*/
       ".read": "auth !== null && $uid === auth.uid",
       ".write": "auth !== null && $uid === auth.uid"
+     /*}*/
     }
    },
+   "usertoken": {
+    "$uid": {
+       ".read": true,
+       ".write": true
+     }
+    },
    "company": {
      "$company": {
         ".read": "auth !== null",

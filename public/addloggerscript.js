@@ -1,9 +1,29 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
+
 var access, company, logger, username;
 const storageService = firebase.storage().ref();
+
+
+
 
 //==========================================================//
 firebase.auth().onAuthStateChanged(user=>
 {   
+    
+    // If this is just an ID token refresh we exit.
+    if (user && this.currentUid === user.uid) {
+        return;
+    }
+    // Remove all Firebase realtime database listeners.
+    if (this.listeners) {
+        this.listeners.forEach(function(ref) {
+        ref.off();
+        });
+    }
+    this.listeners = [];
+
     if(user)
     {
         $('#email').append("Email :  " + firebase.auth().currentUser.email);
@@ -27,26 +47,29 @@ firebase.auth().onAuthStateChanged(user=>
         .catch((error) => {
             console.log(error);
         });
-        
-        var uid = firebase.auth().currentUser.uid;
-        var db = firebase.database().ref("userprofile/" + uid);
 
-        db.on('value', function(snapshot) {
+        var uid = firebase.auth().currentUser.uid;
+        var db = firebase.database().ref("userprofile/" + uid  + "/profile");
+        db.once('value', function(snapshot) {
+
             if (snapshot.exists()) {
-            snapshot.forEach(function(data) {
-                access = data.val().accesslevel
-                username = data.val().username
-                company = data.val().companyid
-            });
-            
+                access = snapshot.val()["accesslevel"]//.accesslevel
+                username = snapshot.val()["username"]
+                company = snapshot.val()["companyid"]
+
             $('#username').append("User : " + username);
             $('#companyid').append("Company : " + company);
             openLoggerFile();
             }
         });  
+        
+        saveToken();
+        this.currentUid = user.uid;
+        sendNotification();
     } 
     else
     {
+        this.currentUid = null;
         //user is null -- Show error
     }
 })
@@ -216,3 +239,101 @@ function modifyAccessLevel()
     })
 }
 //==========================================================//
+
+
+const messaging = firebase.messaging();
+messaging.usePublicVapidKey("BNgI9IkVyR-VSfhCSouAlNXerzztiuLI3wCNiwWl-_8tJAicrHKG_pe-uN4-eJTBDO6zuVRe6INerivdf25kpv4");
+
+
+ messaging.onMessage(payload=>{
+    console.log('Message received. ', payload);
+    // Normally our Function sends a notification payload, we check just in case.
+    if (payload.notification) {
+        // If notifications are supported on this browser we display one.
+        // Note: This is for demo purposes only. For a good user experience it is not recommended to display browser
+        // notifications while the app is in focus. In a production app you probably want to only display some form of
+        // in-app notifications like the snackbar (see below).
+        if (window.Notification instanceof Function) {
+        // This displays a notification if notifications have been granted.
+        new Notification(payload.notification.title, payload.notification);
+        }
+        // Display the notification content in the Snackbar too.
+        //this.snackbar.MaterialSnackbar.showSnackbar({message: payload.notification.body});
+    }
+})
+
+    
+
+//THIS MONITORS TOKEN REFRESH
+// Callback fired if Instance ID token is updated.
+// messaging.onTokenRefresh(() => {
+//     messaging.getToken().then((refreshedToken) => {
+//       console.log('Token refreshed.');
+//       saveToken();
+//       // ...
+//     }).catch((err) => {
+//       console.log('Unable to retrieve refreshed token ', err);
+//       showToken('Unable to retrieve refreshed token ', err);
+//     });
+//   });
+
+
+function requestPermission()
+{
+    console.log('Requesting permission...');
+    firebase.messaging().requestPermission().then(function() 
+    {
+        console.log('Notification permission granted.');
+        this.saveToken();
+    }
+    .bind(this)).catch(function(err) 
+    {
+        console.error('Unable to get permission to notify.', err);
+    });
+}
+
+function saveToken()
+{
+    firebase.messaging().getToken().then(function(currentToken) {
+        if (currentToken) {
+            console.log('cOMING INTO DATABASE TO STORE tOKEN');
+          firebase.database().ref('userprofile/' + this.currentUid + '/notificationTokens/' + currentToken).set(true);
+        } else {
+          this.requestPermission();
+        }
+      }.bind(this)).catch(function(err) {
+        console.error('Unable to get messaging token.', err);
+        if (err.code === 'messaging/permission-default') {
+          alert('You have not enabled notifications on this browser. To enable notifications reload the page and allow notifications using the permission dialog.');
+        } else if (err.code === 'messaging/notifications-blocked') {
+          alert('You have blocked notifications on this browser. To enable notifications follow these instructions: <a href="https://support.google.com/chrome/answer/114662?visit_id=1-636150657126357237-2267048771&rd=1&co=GENIE.Platform%3DAndroid&oco=1">Android Chrome Instructions</a><a href="https://support.google.com/chrome/answer/6148059">Desktop Chrome Instructions</a>');
+        }
+    });
+}
+
+function sendNotification()
+{
+    
+    // This registration token comes from the client FCM SDKs.
+    var registrationToken = firebase.messaging().getToken();
+
+    var message = {
+    data: {
+        score: '850',
+        time: '2:45'
+    },
+    token: registrationToken
+    };
+
+    // Send a message to the device corresponding to the provided
+    // registration token.
+
+    admin.messaging().sendToDevice(registrationToken, message)
+    .then((response) => {
+        // Response is a message ID string.
+        console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+        console.log('Error sending message:', error);
+    });
+}

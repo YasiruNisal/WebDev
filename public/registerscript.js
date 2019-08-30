@@ -26,9 +26,9 @@ firebase.auth().onAuthStateChanged(user=>
     if(user)
     {
         var uid = firebase.auth().currentUser.uid;
-        var db = firebase.database().ref("userprofile/" + uid);
+        var db = firebase.database().ref("userprofile/" + uid + "/profile");
         //Add extra data to the reatime database
-        db.push(
+        db.set(
         {
             username: document.getElementById("txtUserName").value,
             email: document.getElementById("txtEmail").value,
